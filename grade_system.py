@@ -32,3 +32,21 @@ def compute_thread(grade, i):
         
         print(f" [Thread-{i}] Processed Grade: {grade} | Running GWA: {current_gwa:.2f}")
         
+def run_threading_logic(grades):
+    print("\n>>> Starting Multithreading (Shared Memory)...")
+    start = time.time()
+    
+    # Reset the global list for a fresh run
+    global curr_grades
+    curr_grades = []
+    
+    threads = []
+    for i, g in enumerate(grades):
+        t = threading.Thread(target=compute_thread, args=(g, i+1))
+        threads.append(t)
+        t.start()
+        
+    for t in threads:
+        t.join()
+        
+    return time.time() - start
