@@ -50,3 +50,28 @@ def run_threading_logic(grades):
         t.join()
         
     return time.time() - start
+
+    # --- 2. Multiprocessing Task (Standard: Independent) ---
+def compute_process(grade, i):
+    # Simulate CPU work
+    time.sleep(0.1)
+    
+    # Processes are independent, so they just calculate their own part
+    # They don't know about other processes' grades
+    local_avg = grade 
+    print(f" [Process-{os.getpid()}] Processed Grade: {grade} | Independent GWA: {local_avg:.2f}")
+
+def run_multiprocessing_logic(grades):
+    print("\n>>> Starting Multiprocessing (Independent Memory)...")
+    start = time.time()
+    
+    processes = []
+    for i, g in enumerate(grades):
+        p = multiprocessing.Process(target=compute_process, args=(g, i+1))
+        processes.append(p)
+        p.start()
+        
+    for p in processes:
+        p.join()
+        
+    return time.time() - start
