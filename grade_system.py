@@ -1,3 +1,4 @@
+import threading
 import multiprocessing
 import time
 import os
@@ -31,7 +32,7 @@ def compute_thread(grade, i):
         current_gwa = sum(curr_grades) / len(curr_grades)
         
         print(f" [Thread-{i}] Processed Grade: {grade} | Running GWA: {current_gwa:.2f}")
-        
+
 def run_threading_logic(grades):
     print("\n>>> Starting Multithreading (Shared Memory)...")
     start = time.time()
@@ -51,7 +52,7 @@ def run_threading_logic(grades):
         
     return time.time() - start
 
-    # --- 2. Multiprocessing Task (Standard: Independent) ---
+# --- 2. Multiprocessing Task (Standard: Independent) ---
 def compute_process(grade, i):
     # Simulate CPU work
     time.sleep(0.1)
@@ -75,8 +76,9 @@ def run_multiprocessing_logic(grades):
         p.join()
         
     return time.time() - start
-    # --- Main Execution ---
-if _name_ == "_main_":
+
+# --- Main Execution ---
+if __name__ == "__main__":
     # 1. Input
     grades_list = get_user_input()
     
