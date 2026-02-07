@@ -75,3 +75,27 @@ def run_multiprocessing_logic(grades):
         p.join()
         
     return time.time() - start
+    # --- Main Execution ---
+if _name_ == "_main_":
+    # 1. Input
+    grades_list = get_user_input()
+    
+    # 2. Run Threads
+    t_time = run_threading_logic(grades_list)
+    
+    # 3. Run Processes
+    p_time = run_multiprocessing_logic(grades_list)
+    
+    # 4. Final Comparison Table
+    print("\n" + "="*45)
+    print(f"{'Method':<20} | {'Execution Time':<15}")
+    print("-" * 45)
+    print(f"{'Multithreading':<20} | {t_time:.6f} s")
+    print(f"{'Multiprocessing':<20} | {p_time:.6f} s")
+    print("="*45)
+    
+    # Simple observation logic
+    if t_time < p_time:
+        print("\nObservation: Threads were faster (less overhead).")
+    else:
+        print("\nObservation: Processes were faster.")
